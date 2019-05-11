@@ -16,6 +16,9 @@ class Panel(models.Model):
   def __str__(self):
     return self.name
 
+  def approved_versions(self):
+    return Version.objects.filter(panel_id=self.id, status=StatusChoice.APPROVED.value).count()
+
 
 class StatusChoice(Enum):
   PENDING = "Pendente"

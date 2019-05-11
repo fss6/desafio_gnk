@@ -3,12 +3,21 @@ from .models import Panel, Version, StatusChoice
 
 class PanelAdmin(admin.ModelAdmin):
   exclude = ('created_by',)
+  list_display = ('name', 'approved_versions', 'created_by', 'created_at')
+  readonly_fields = ["approved_versions", 'created_by', 'created_at']
 
   def save_model(self, request, obj, form, change):
     if not change:
       obj.created_by = request.user
 
     super().save_model(request, obj, form, change)
+
+  def has_change_permission(self, request, obj=None):
+    return obj.approved_versions() == 0 if not obj is None else True
+
+  def has_delete_permission(self, request, obj=None):
+    return obj.approved_versions() == 0 if not obj is None else True
+
 
 class VersionAdmin(admin.ModelAdmin):
   list_display = ('panel', 'status', 'custom_version',
