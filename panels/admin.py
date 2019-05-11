@@ -71,6 +71,12 @@ class VersionAdmin(admin.ModelAdmin):
 class ComparationAdmin(admin.ModelAdmin):
   change_list_template = "comparation/comparation_form.html"
 
+  def has_add_permission(self, request):
+    return False
+
+  def has_change_permission(self, request, obj=None):
+    return False
+
   def changelist_view(self, request, extra_context=None):
     extra_context = extra_context or {}
     versions = Version.objects.filter(status=StatusChoice.APPROVED.value)
