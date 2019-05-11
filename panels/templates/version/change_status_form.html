@@ -1,0 +1,15 @@
+{% extends 'admin/change_form.html' %}
+
+{% block submit_buttons_bottom %}
+    {% if is_pending %}
+        <div class="submit-row">
+            <input type="submit" value="Para aprovação" name="_make-to-approve" style="background: blue">
+        </div>
+    {% elif is_pending_approved and not is_owner %}
+        <div class="submit-row">
+            <input type="submit" value="Reprovar versão" name="_make-disapprove" style="background: orange">
+            <input type="submit" value="Aprovar versão" name="_make-approve" style="background: green">
+        </div>
+    {% endif %}
+    {{ block.super }}
+{% endblock %}
