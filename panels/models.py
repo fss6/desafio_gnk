@@ -35,6 +35,9 @@ class Version(models.Model):
   genes = models.ManyToManyField(Gene)
   created_at = models.DateTimeField(auto_now_add=True)
 
+  def custom_name(self):
+    return self.panel.name + " - V" + str(self.version)
+
   def custom_version(self):
     return self.version if self.version > 0 else "-"
   custom_version.short_description = 'Version'
@@ -47,4 +50,11 @@ class Version(models.Model):
 
   def is_owner(self, user):
     return self.created_by_id == user.id
+
+
+class Comparation(Version):
+  class Meta:
+    proxy = True
+    verbose_name = 'Comparation'
+    verbose_name_plural = 'Comparations'
 

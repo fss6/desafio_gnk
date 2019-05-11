@@ -1,0 +1,53 @@
+{% extends 'admin/change_form.html' %}
+
+{% block content_title %}
+  <h1>Select two panel versions to comparation</h1>
+{% endblock %}
+
+{% block content %}
+  <div id="content-main">
+    <form action="{{ form_url }}" method="POST">
+      {% csrf_token %}
+      <fieldset class="module aligned ">
+        <div class="form-row">
+          <label>Panel version A</label>
+          <select name="panel_version_a">
+            <option disabled selected> -- select an option -- </option>
+            {% for version in versions %}
+              <option value={{version.id}}>{{version.custom_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Panel version B</label>
+          <select name="panel_version_b">
+            <option disabled selected> -- select an option -- </option>
+            {% for version in versions %}
+              <option value={{version.id}}>{{version.custom_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        {% if compatible_genes %}
+          <h3>Compatible gene(s)</h3>
+          <div class="results">
+            <table id="result_list">
+              <tbody>
+                {% for gene in compatible_genes %}
+                  <tr>
+                    <td>{{gene}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% endif %}
+        <div class="submit-row">
+          <input type="submit" value="Compare">
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+{% endblock %}
