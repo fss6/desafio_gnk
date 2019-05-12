@@ -12,6 +12,21 @@ app = Celery('desafio_gnk')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
+
+class GeneAdmin(admin.ModelAdmin):
+  def has_add_permission(self, request):
+    return False
+
+  def has_change_permission(self, request, obj=None):
+    return False
+
+  def has_delete_permission(self, request, obj=None):
+    obj_id = obj.id if not obj is None else 0
+    return False if Gene.objects.raw(
+        ("SELECT gene.* FROM genes_gene AS gene "
+         "INNER JOIN panels_version_genes version ON version.gene_id = gene.id "
+         "WHERE gene.id=" + str(obj_id) + "")) else True
+
 class CsvImportForm(forms.Form):
   csv_file = forms.FileField()
 
@@ -47,5 +62,5 @@ class ImportCSVAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(Gene)
+admin.site.register(Gene, GeneAdmin)
 admin.site.register(ImportCSV, ImportCSVAdmin)
