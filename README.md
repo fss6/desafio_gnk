@@ -11,7 +11,7 @@
 - url: https://desafio-gnk.herokuapp.com
 - user: admin
 - pwd: admin@123
-### Other installed libs. For more detail: requeriments.txt in the root path
+### Other installed libs. For more detail: requirements.txt in the root path
 - amqp
 - astroid
 - autopep8
