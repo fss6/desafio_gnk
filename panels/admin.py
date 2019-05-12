@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import Panel, Version, StatusChoice, Comparation
 from genes.models import Gene
+from django import forms
+from searchableselect.widgets import SearchableSelect
 
 class PanelAdmin(admin.ModelAdmin):
   exclude = ('created_by',)
@@ -20,11 +22,19 @@ class PanelAdmin(admin.ModelAdmin):
     return obj.approved_versions() == 0 if not obj is None else True
 
 
+class VersionForm(forms.ModelForm):
+  class Meta:
+    model = Version
+    exclude = ()
+    widgets = {
+      'genes': SearchableSelect(model='genes.Gene', search_field='name', limit=20)
+    }
+
 class VersionAdmin(admin.ModelAdmin):
+  form = VersionForm
   list_display = ('panel', 'status', 'custom_version',
                   'created_by', 'created_at')
   exclude = ('created_by', 'status', 'version')
-  filter_horizontal = ('genes',)
   readonly_fields = ["status", "custom_version", 'created_by', 'created_at']
   change_form_template = "version/change_status_form.html"
 

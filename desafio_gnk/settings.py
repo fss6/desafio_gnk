@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'genes',
-    'panels'
+    'panels',
+    'searchableselect',
 ]
 
 MIDDLEWARE = [
