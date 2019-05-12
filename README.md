@@ -11,3 +11,31 @@
 - url: https://desafio-gnk.herokuapp.com
 - user: admin
 - pwd: admin@123
+### Other installed libs. For more detail: requeriments.txt in the root path
+- amqp
+- astroid
+- autopep8
+- billiard
+- celery
+- dj-database-url
+- Django
+- django-heroku
+- django-searchable-select
+- gunicorn
+- isort
+- kombu
+- lazy-object-proxy
+- mccabe
+- psycopg2
+- pycodestyle
+- pylint
+- pylint-django
+- pylint-plugin-utils
+- pytz
+- redis
+- six
+- sqlparse
+- typed-ast
+- vine
+- whitenoise
+- wrapt
